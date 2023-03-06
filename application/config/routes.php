@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['dashboard'] = 'administrator/dashboard';
 $route['login'] = 'administrator/auth/login';
+$route['login-process'] = 'administrator/auth/login/login_process';
 $route['register'] = 'administrator/auth/register';
 $route['daily_report'] = 'administrator/daily_report';
 $route['daily_report-simpan'] = 'administrator/daily_report/simpan';

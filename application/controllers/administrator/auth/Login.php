@@ -3,23 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login extends CI_Controller {
 
+    public function __construct() {
+        parent::__construct();
+        $this->load->model('users_model');
+        $this->load->library('form_validation');
+    }
+
 	public function index()
 	{
 		$this->load->view('administrator/auth/login');
 	}
 
-	public function index()
-	{
-		$this->load->view('administrator/auth/register');
-	}
+	// public function index()
+	// {
+	// 	$this->load->view('administrator/auth/register');
+	// }
 
-    public function __construct() {
-        parent::__construct();
-        $this->load->model('users');
-        $this->load->library('form_validation');
-    }
-
-    public function index() {
+    public function login_process() {
         if($this->session->userdata('login')){
             redirect('dashboard');
         }
@@ -30,7 +30,7 @@ class Login extends CI_Controller {
         } else {
             $username = $this->input->post('username');
             $password = $this->input->post('password');
-            $user = $this->User_model->login($username, $password);
+            $user = $this->user_model->login($username, $password);
             if ($user) {
                 $userdata = array(
                     'user_id' => $user['user_id'],
