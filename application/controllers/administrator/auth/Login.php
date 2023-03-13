@@ -33,8 +33,8 @@ class Login extends CI_Controller {
             $user = $this->user_model->login($username, $password);
             if ($user) {
                 $userdata = array(
-                    'user_id' => $user['user_id'],
                     'username' => $user['username'],
+                    'password' => $user['password'],
                     'logged_in' => true
                 );
                 $this->session->set_userdata($userdata);
