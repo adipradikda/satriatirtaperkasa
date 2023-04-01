@@ -26,11 +26,12 @@ class Login extends CI_Controller {
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('login');
+            alert_bs_4('isi dengan benar','danger');
+            $this->load->view('administrator/auth/login');
         } else {
             $username = $this->input->post('username');
             $password = $this->input->post('password');
-            $user = $this->user_model->login($username, $password);
+            $user = $this->users_model->login($username, $password);
             if ($user) {
                 $userdata = array(
                     'username' => $user['username'],
@@ -40,7 +41,7 @@ class Login extends CI_Controller {
                 $this->session->set_userdata($userdata);
                 redirect('dashboard');
             } else {
-                $this->session->set_flashdata('message', 'Invalid username or password');
+                alert_bs_4('password salah','danger');
                 redirect('login');
             }
         }

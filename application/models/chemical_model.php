@@ -11,7 +11,18 @@ class Chemical_model extends CI_Model {
 		return $data->result();
 	}
 	public function delete($id){
-		$this->db->where('id',$id);
+		$this->db->where('id_date_note',$id);
 		$data = $this->db->delete('chemical');
+	}
+	public function edit($id){
+		$this->db->where('id',$id);
+		$data = $this->db->get('chemical');
+
+		return $data->row();
+
+	}
+	public function simpan_edit($data,$id){
+		$this->db->where('id_date_note',$id);
+		$data = $this->db->update('chemical',$data);
 	}
 }

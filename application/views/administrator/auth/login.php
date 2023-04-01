@@ -1,59 +1,66 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Daily Report - Satria Tirta Perkasa</title>
+        <?php $this->load->view('administrator/layouts/_css'); ?>
 
-<body>
-    <div id="login">
-        <h3 class="text-center text-white pt-5">SATRIA TIRTA PERKASA</h3>
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <!-- <form id="login-form" class="form" action="<?php echo base_url('dashboard') ?>" method="post"> -->
-                        <form id="login-form" class="form" action="<?php echo base_url('login-process') ?>" method="post">
-                            <h3 class="text-center text-info">Login</h3>
-                            <div class="form-group">
-                                <label for="username" class="text-info">Username:</label><br>
-                                <input type="text" name="username" id="username" class="form-control" placeholder="username">
+    </head>
+    <body class="bg-primary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-body">
+                                        <?= $this->session->flashdata('msg') ? $this->session->flashdata('msg') : '' ?>
+                                        <form id="login-form" class="form" action="<?php echo base_url('login-process') ?>" method="post">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" name="username" id="username" class="form-control" placeholder="username" />
+                                                <label for="inputEmail">Username</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="password" name="password" id="password" class="form-control" placeholder="password" md5 />
+                                                <label for="inputPassword">Password</label>
+                                            </div>
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
+                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                                            </div>
+                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                <a class="small" href="password.html">Forgot Password?</a>
+                                                <!-- <a class="btn btn-primary" href="index.html">Login</a> -->
+                                                <input type="submit" name="submit" class="btn btn-info btn-md" value="LOGIN">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Password:</label><br>
-                                <input type="password" name="password" id="password" class="form-control" placeholder="password" md5>
-                            </div>
-                            <div class="form-group">
-                                <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
-                            </div>
-                            <div id="register-link" class="text-right">
-                                <a href="<?php echo base_url('register') ?>" class="text-info">Register here</a>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                </main>
+            </div>
+            <div id="layoutAuthentication_footer">
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
-    </div>
-</body>
-
-<style type="text/css">
-  body {
-  margin: 0;
-  padding: 0;
-  background-color: #17a2b8;
-  height: 100vh;
-}
-#login .container #login-row #login-column #login-box {
-  margin-top: 120px;
-  max-width: 600px;
-  height: 320px;
-  border: 1px solid #9C9C9C;
-  background-color: #EAEAEA;
-}
-#login .container #login-row #login-column #login-box #login-form {
-  padding: 20px;
-}
-#login .container #login-row #login-column #login-box #login-form #register-link {
-  margin-top: -85px;
-}
-</style>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

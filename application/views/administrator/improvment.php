@@ -4,7 +4,7 @@
         <title>Daily Report - Satria Tirta Perkasa</title>
         <?php $this->load->view('administrator/layouts/_css'); ?>
 
-    </head>
+    </head> 
     <body class="sb-nav-fixed">
         <?php $this->load->view('administrator/layouts/header'); ?>
         <div id="layoutSidenav">
@@ -20,6 +20,9 @@
                         <button type="button" class="mb-4 btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                           Insert Data
                         </button>
+                        <a href="<?php echo base_url('improvment-print') ?>" class="mb-4 btn btn-success">
+                          Print PDF <i class="fas fa-print"></i>
+                        </a>                        
                         <?php if($this->session->flashdata('msg')){ ?>
                         <?php echo $this->session->flashdata('msg'); ?>
                         <?php } ?>
@@ -96,10 +99,9 @@
                                     <td><?php echo ($no+1); ?></td>
                                     <td><?php echo $value->judul; ?></td>
                                     <td><?php echo $value->keterangan; ?></td>   
-                                    <td><img src="<?php echo base_url('assets/uploads/improvment/'.$value->gambar); ?>" width="250"></td>
+                                    <td><img src="<?php echo base_url('assets/uploads/improvment/'.$value->gambar); ?>" width="150"></td>
 
                                     <td><?php echo $value->status; ?></td>
-                                    <td width="20px"><div class="btn btn-sm btn-info" data-id="<?php echo $value->id ?>"><i class="fa fa-eye"></i></div></td>
                                     <td width="20px"><div class="btn btn-sm btn-primary" data-id="<?php echo $value->id ?>"><i class="fa fa-edit"></i></div></td>
                                     <td width="20px"><div class="btn btn-sm btn-danger" data-id="<?php echo $value->id ?>"><i class="fa fa-trash"></i></div></td>
                                 </tr>
@@ -107,6 +109,7 @@
                                     
 
                             </table>
+                            <?=  $this->pagination->create_links(); ?>
                     </div>
                 </main>
         <?php $this->load->view('administrator/layouts/footer'); ?>

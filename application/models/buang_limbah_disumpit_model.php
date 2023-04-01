@@ -11,7 +11,18 @@ class Buang_limbah_disumpit_model extends CI_Model {
 		return $data->result();
 	}
 	public function delete($id){
-		$this->db->where('id',$id);
+		$this->db->where('id_date_note',$id);
 		$data = $this->db->delete('buang_limbah_disumpit');
+	}
+	public function edit($id){
+		$this->db->where('id',$id);
+		$data = $this->db->get('buang_limbah_disumpit');
+
+		return $data->row();
+
+	}
+	public function simpan_edit($data,$id){
+		$this->db->where('id_date_note',$id);
+		$data = $this->db->update('buang_limbah_disumpit',$data);
 	}
 }

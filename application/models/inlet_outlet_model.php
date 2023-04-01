@@ -11,7 +11,18 @@ class Inlet_outlet_model extends CI_Model {
 		return $data->result();
 	}
 	public function delete($id){
-		$this->db->where('id',$id);
+		$this->db->where('id_date_note',$id);
 		$data = $this->db->delete('inlet_outlet');
+	}
+	public function edit($id){
+		$this->db->where('id',$id);
+		$data = $this->db->get('inlet_outlet');
+
+		return $data->row();
+
+	}
+	public function simpan_edit($data,$id){
+		$this->db->where('id_date_note',$id);
+		$data = $this->db->update('inlet_outlet',$data);
 	}
 }

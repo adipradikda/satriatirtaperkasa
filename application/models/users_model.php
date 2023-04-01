@@ -10,10 +10,10 @@ class Users_model extends CI_Model {
         $this->db->where('username', $user);
         return $query->row();
     }
-    public function getLoginUser($username, $password){
+    public function login($username, $password){
         $this->db->where('username', $username);
         $this->db->where('password', $password);
-        $query - $this->db->get('users');
+        $query = $this->db->get('users');
         if ($query->num_rows() == 1) {
             return $query->row_array();
         } else {

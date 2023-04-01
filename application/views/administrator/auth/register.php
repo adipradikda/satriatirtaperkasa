@@ -51,9 +51,7 @@
   height: 100vh;
 }
 #login .container #login-row #login-column #login-box {
-  margin-top: 120px;
-  max-width: 600px;
-  height: 320px;
+  padding: 20px 0px;
   border: 1px solid #9C9C9C;
   background-color: #EAEAEA;
 }

@@ -58,7 +58,7 @@ function tgl_indo($date) {
  
     $hari = date('N', strtotime($date));
     switch ($hari) {
-        case 0 : {
+        case 7 : {
                 $hari = 'Minggu';
             }break;
         case 1 : {
@@ -86,4 +86,21 @@ function tgl_indo($date) {
  
     $tanggalIndonesia = $hari.", ".$tgl . " " . $bln . " " . $thn;
     return $tanggalIndonesia;
+}
+
+function alert_bs_4($message,$type='success'){
+        $ci = get_instance();
+        $message_txt = '<div class="alert alert-'.$type.' alert-dismissible fade show" role="alert">
+                  '.$message.'
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>';
+        $ci->session->set_flashdata('msg', $message_txt);
+}
+
+function check_session_login(){
+        $ci = get_instance();
+        if(!$ci->session->logged_in){
+                alert_bs_4('sesi telah habis, silahkan login kembali','danger');
+                redirect('login');
+        }
 }
