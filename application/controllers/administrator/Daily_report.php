@@ -21,15 +21,59 @@ class Daily_report extends CI_Controller {
 
 	public function index()
 	{
-		$year 	= date('Y');
-		$month  = (int) date('m');
+		$tahun 	= $this->input->get('tahun');
+		$tahun = $tahun ? $tahun: date('Y');
+		$bulan = $this->input->get('bulan');
+		$bulan = $bulan ? $bulan: date('m');
+		$bulan  = (int) $bulan;
 
-		$data['date_note'] 	= $this->dt->tampil();
-		$data['fyear'] 		= $year;
-		$data['fmonth'] 	= $month;
+		$data['date_note'] 	= $this->dt->tampil($tahun,$bulan);
+		$data['fyear'] 		= $tahun;
+		$data['fmonth'] 	= $bulan;
 		$data['view_dir']	= $this->view_dir;
 		$this->load->view($this->view_dir.'index',$data);
 
+	}
+
+	private function generate_otomatis($tahun,$bulan){
+		$date = $tahun.'-'.$bulan.'-01';
+		$max_day = date("t",strtotime($date));
+
+		$arr_kecuali = ['Saturday','Sunday'];
+		for ($i=1; $i <= $max_day ; $i++) { 
+			$now = $tahun.'-'.$bulan.'-'.sprintf('%02d', $i);
+			$day = date("l",strtotime($now));
+			if(!in_array($day,$arr_kecuali)){
+				$data_dt = [
+					'tanggal' => $now,
+					'shift' => 1
+				];
+				// simpan shift 1
+				$id_date_note1 = $this->dt->simpan($data_dt);
+				$data = [
+					'id_date_note' => $id_date_note1
+				];
+				$this->frm->simpan($data);
+				$this->io->simpan($data);
+				$this->cmc->simpan($data);
+				$this->mbbr->simpan($data);
+				$this->hos->simpan($data);
+				$this->blds->simpan($data);
+
+				// simpan shift 2
+				$data_dt['shift'] = 2;
+				$id_date_note2 = $this->dt->simpan($data_dt);
+				$data = [
+					'id_date_note' => $id_date_note2
+				];
+				$this->frm->simpan($data);
+				$this->io->simpan($data);
+				$this->cmc->simpan($data);
+				$this->mbbr->simpan($data);
+				$this->hos->simpan($data);
+				$this->blds->simpan($data);
+			}
+		}
 	}
 
 	public function simpan()
@@ -239,7 +283,7 @@ class Daily_report extends CI_Controller {
 		$data_dt = array(
 			'tanggal'	=> $date,
 			'catatan'	=> $keterangan,
-			'shift'	=> $shift,
+			
 		);
 		$id_date_note = $id;
 
@@ -313,13 +357,20 @@ class Daily_report extends CI_Controller {
 	}
 	public function print(){
 
-	    $data['date_note']	 			=$this->dt->tampil();
-	    $data['flow_rate']				=$this->frm->tampil();
-	    $data['inlet_outlet']			=$this->io->tampil();
-	    $data['chemical']	 			=$this->cmc->tampil();
-	    $data['mbbr'] 		 			=$this->mbbr->tampil();
-	    $data['hasil_olahan_sludge']	=$this->hos->tampil();
-	    $data['buang_limbah_disumpit']	=$this->blds->tampil();
+		$tahun 	= $this->input->get('tahun');
+		$tahun = $tahun ? $tahun: date('Y');
+		$bulan = $this->input->get('bulan');
+		$bulan = $bulan ? $bulan: date('m');
+		$bulan  = (int) $bulan;
+
+
+	    $data['date_note']	 			=$this->dt->tampil($tahun,$bulan);
+	    // $data['flow_rate']				=$this->frm->tampil();
+	    // $data['inlet_outlet']			=$this->io->tampil();
+	    // $data['chemical']	 			=$this->cmc->tampil();
+	    // $data['mbbr'] 		 			=$this->mbbr->tampil();
+	    // $data['hasil_olahan_sludge']	=$this->hos->tampil();
+	    // $data['buang_limbah_disumpit']	=$this->blds->tampil();
 
 	    $this->load->library('pdf');
 

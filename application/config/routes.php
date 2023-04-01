@@ -58,6 +58,7 @@ $route['login-process'] = 'administrator/auth/login/login_process';
 $route['register'] = 'administrator/auth/register';
 $route['logout'] = 'administrator/auth/login/logout';
 $route['daily_report'] = 'administrator/daily_report';
+$route['daily_report-auto/(:any)/(:any)'] = 'administrator/daily_report/generate_otomatis/$1/$2';
 $route['daily_report-simpan'] = 'administrator/daily_report/simpan';
 $route['daily_report-delete'] = 'administrator/daily_report/delete';
 $route['daily_report-edit'] = 'administrator/daily_report/edit';

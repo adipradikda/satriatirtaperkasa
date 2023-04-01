@@ -17,131 +17,144 @@
                             <li class="breadcrumb-item active">Report WWTP PT KERRY CIKARANG</li>
                         </ol>
                         <!-- Button trigger modal -->
-                        <div class="col-md-6">
-                            <div class="input-group mb-3">
-                                <span class="input-group-text btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Insert Data</span>
-                                <select class="form-select d-none">
-                                    <option>Select Year</option>
-                                    <?php
-                                        foreach(range(2023, (int)date("Y")) as $year) {
-                                            $selected = $year == $fyear ? ' selected' : '';
-                                            echo "\t<option value='".$year."'".$selected.">".$year."</option>\n\r";
-                                        }
-                                    ?>
-                                </select>
-                                <select class="form-select d-none">
-                                    <option>Select Month</option>
-                                    <?php
-                                        foreach (arr_bulan() as $k => $v) {
-                                            $selected = $k == $fmonth ? ' selected' : '';
-                                            echo "\t<option value='".$k."'".$selected.">".$v."</option>\n\r";
-                                        }
-                                    ?>
-                                </select>
-                                <span class="input-group-text btn btn-primary d-none">Search</span>
-                                <span class="input-group-text btn btn-success"><a class="text-white text-decoration-none" href="<?php echo base_url('daily_report-print') ?>" target="_blank">
-                                  Print PDF <i class="fas fa-print"></i>
-                                </a></span>
-                                
+                        <form id="form-filter" action="<?php echo base_url('daily_report'); ?>" method="GET">
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Insert Data</span>
+                                    <select class="form-select filter" name="tahun">
+                                        <?php
+                                            foreach(range(2000, (int)date("Y")) as $year) {
+                                                $selected = $year == $fyear ? ' selected' : '';
+                                                echo "\t<option value='".$year."'".$selected.">".$year."</option>\n\r";
+                                            }
+                                        ?>
+                                    </select>
+                                    <select class="form-select filter" name="bulan">
+                                        <?php
+                                            foreach (arr_bulan() as $k => $v) {
+                                                $selected = $k == $fmonth ? ' selected' : '';
+                                                echo "\t<option value='".$k."'".$selected.">".$v."</option>\n\r";
+                                            }
+                                        ?>
+                                    </select>
+                                    <span class="input-group-text btn btn-primary d-none">Search</span>
+                                    <span class="input-group-text btn btn-success"><a class="text-white text-decoration-none d-print" href="#" data-src="<?php echo base_url('daily_report-print') ?>">
+                                      Print PDF <i class="fas fa-print"></i>
+                                    </a></span>
+                                    
+                                </div>
                             </div>
-                        </div>
+                        </form>
                         <?php if($this->session->flashdata('msg')){ ?>
                         <?php echo $this->session->flashdata('msg'); ?>
                         <?php } ?>
 
                             <?php $this->load->view($view_dir.'tambah'); ?>
-                            <table class="table table-bordered" border="3" align="center">
-                                <tr>
-                                    <th class="align-middle text-center" colspan="2" rowspan="3">Aksi</th>
-                                    <th class="align-middle text-center" rowspan="3">Date</th>
-                                    <th class="align-middle text-center" rowspan="3">Shift</th>
-                                    <th class="align-middle text-center" colspan="6">Flowrate</th>
-                                    <th class="align-middle text-center" colspan="4">Inlet/Outlet</th>
-                                    <th class="align-middle text-center" colspan="6">Chemical</th>
-                                    <th class="align-middle text-center" colspan="3" rowspan="2">MBBR</th>
-                                    <th class="align-middle text-center" colspan="3" rowspan="2">Hasil Olahan Sludge</th>
-                                    <th class="align-middle text-center" colspan="5" rowspan="2">Buang Limbah Di Sumpit</th>
-                                    <th class="align-middle text-center" rowspan="2" colspan="3">KETERANGAN</th>
-                                </tr>
-                                <tr>
-                                    
-                                    <th class="align-middle text-center" colspan="3">Total Flow Inlet</th>
-                                    <th class="align-middle text-center" colspan="3">Total Flow Outlet</th>
-                                    <th class="align-middle text-center" colspan="2">EQ</th>
-                                    <th class="align-middle text-center" colspan="2">DAF 2</th>
-                                    <th class="align-middle text-center">FeCL3</th>
-                                    <th class="align-middle text-center">Anion</th>
-                                    <th class="align-middle text-center">Cation</th>
-                                    <th class="align-middle text-center">Coustik</th>
-                                    <th class="align-middle text-center">Bakteri</th>
-                                    <th class="align-middle text-center">Anti Foam</th>
-                                </tr>
-                                <tr>
-                                    <th class="align-middle text-center">Awal</th>
-                                    <th class="align-middle text-center">Akhir</th>
-                                    <th class="align-middle text-center">Hasil Proses</th>
-                                    <th class="align-middle text-center">Awal</th>
-                                    <th class="align-middle text-center">Akhir</th>
-                                    <th class="align-middle text-center">Hasil Proses</th>
-                                    <th class="align-middle text-center">pH</th>
-                                    <th class="align-middle text-center">TDS</th>
-                                    <th class="align-middle text-center">pH</th>
-                                    <th class="align-middle text-center">TDS</th>
-                                    <th class="align-middle text-center">ml</th>
-                                    <th class="align-middle text-center">kg</th>
-                                    <th class="align-middle text-center">kg</th>
-                                    <th class="align-middle text-center">liter</th>
-                                    <th class="align-middle text-center">liter</th>
-                                    <th class="align-middle text-center">liter</th>
-                                    <th class="align-middle text-center">pH</th>
-                                    <th class="align-middle text-center">TDS</th>
-                                    <th class="align-middle text-center">SV 30</th>
-                                    <th class="align-middle text-center">Stok Karung</th>
-                                    <th class="align-middle text-center">Karung SAK</th>
-                                    <th class="align-middle text-center">Jumbo Bag</th>
-                                    <th class="align-middle text-center">Angkut Mobil Limbah</th>
-                                    <th class="align-middle text-center">Saos</th>
-                                    <th class="align-middle text-center">Mayones</th>
-                                    <th class="align-middle text-center">Keju</th>
-                                    <th class="align-middle text-center">IBC</th>
-                                </tr>
-                                <?php foreach ($date_note as $k => $value ): ?>
-                                    <tr>
-                                    <td width="20px"><div class="btn btn-sm btn-primary" data-id="<?php echo $value->id ?>"><i class="fa fa-edit"></i></div></td>
-                                    <td width="20px"><div class="btn btn-sm btn-danger" data-id="<?php echo $value->id ?>"><i class="fa fa-trash"></i></div></td>
-                                        <td style="min-width: 200px"><?php echo tgl_indo($value->tanggal); ?></td>
-                                        <td><?php echo $value->shift; ?></td>
-                                        <td><?php echo $value->awal_inlet; ?></td>
-                                        <td><?php echo $value->akhir_inlet; ?></td>
-                                        <td><?php echo $value->hasil_proses_m3_1; ?></td>
-                                        <td><?php echo $value->awal_outlet; ?></td>
-                                        <td><?php echo $value->akhir_outlet; ?></td>
-                                        <td><?php echo $value->hasil_proses_m3_2; ?></td>
-                                        <td><?php echo $value->ph_eq; ?></td>
-                                        <td><?php echo $value->tds_eq; ?></td>
-                                        <td><?php echo $value->ph_daf; ?></td>
-                                        <td><?php echo $value->tds_daf; ?></td>
-                                        <td><?php echo $value->fecl3; ?></td>
-                                        <td><?php echo $value->anion; ?></td>
-                                        <td><?php echo $value->cation; ?></td>
-                                        <td><?php echo $value->coustik; ?></td>
-                                        <td><?php echo $value->bakteri; ?></td>
-                                        <td><?php echo $value->antifoam; ?></td>
-                                        <td><?php echo $value->ph; ?></td>
-                                        <td><?php echo $value->tds; ?></td>
-                                        <td><?php echo $value->sv_30; ?></td>
-                                        <td><?php echo $value->stok_karung; ?></td>
-                                        <td><?php echo $value->karung_sak; ?></td>
-                                        <td><?php echo $value->jumbo_bag; ?></td>
-                                        <td><?php echo $value->angkut_mobil_limbah; ?></td>
-                                        <td><?php echo $value->saos; ?></td>
-                                        <td><?php echo $value->mayones; ?></td>
-                                        <td><?php echo $value->keju; ?></td>
-                                        <td><?php echo $value->ibc; ?></td>
-                                        <td><?php echo $value->catatan; ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </table>
+                            <div class="table-responsive min-vh-100">    
+                                <table class="table table-bordered" border="3" align="center">
+                                    <thead style="position: sticky;top: 0">
+                                        <tr>
+                                            <th class="align-middle text-center" colspan="2" rowspan="3">Aksi</th>
+                                            <th class="align-middle text-center" rowspan="3">Date</th>
+                                            <th class="align-middle text-center" rowspan="3">Shift</th>
+                                            <th class="align-middle text-center" colspan="6">Flowrate</th>
+                                            <th class="align-middle text-center" colspan="4">Inlet/Outlet</th>
+                                            <th class="align-middle text-center" colspan="6">Chemical</th>
+                                            <th class="align-middle text-center" colspan="3" rowspan="2">MBBR</th>
+                                            <th class="align-middle text-center" colspan="3" rowspan="2">Hasil Olahan Sludge</th>
+                                            <th class="align-middle text-center" colspan="5" rowspan="2">Buang Limbah Di Sumpit</th>
+                                            <th class="align-middle text-center" rowspan="2" colspan="3">KETERANGAN</th>
+                                        </tr>
+                                        <tr>
+                                            
+                                            <th class="align-middle text-center" colspan="3">Total Flow Inlet</th>
+                                            <th class="align-middle text-center" colspan="3">Total Flow Outlet</th>
+                                            <th class="align-middle text-center" colspan="2">EQ</th>
+                                            <th class="align-middle text-center" colspan="2">DAF 2</th>
+                                            <th class="align-middle text-center">FeCL3</th>
+                                            <th class="align-middle text-center">Anion</th>
+                                            <th class="align-middle text-center">Cation</th>
+                                            <th class="align-middle text-center">Coustik</th>
+                                            <th class="align-middle text-center">Bakteri</th>
+                                            <th class="align-middle text-center">Anti Foam</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="align-middle text-center">Awal</th>
+                                            <th class="align-middle text-center">Akhir</th>
+                                            <th class="align-middle text-center">Hasil Proses</th>
+                                            <th class="align-middle text-center">Awal</th>
+                                            <th class="align-middle text-center">Akhir</th>
+                                            <th class="align-middle text-center">Hasil Proses</th>
+                                            <th class="align-middle text-center">pH</th>
+                                            <th class="align-middle text-center">TDS</th>
+                                            <th class="align-middle text-center">pH</th>
+                                            <th class="align-middle text-center">TDS</th>
+                                            <th class="align-middle text-center">ml</th>
+                                            <th class="align-middle text-center">kg</th>
+                                            <th class="align-middle text-center">kg</th>
+                                            <th class="align-middle text-center">liter</th>
+                                            <th class="align-middle text-center">liter</th>
+                                            <th class="align-middle text-center">liter</th>
+                                            <th class="align-middle text-center">pH</th>
+                                            <th class="align-middle text-center">TDS</th>
+                                            <th class="align-middle text-center">SV 30</th>
+                                            <th class="align-middle text-center">Stok Karung</th>
+                                            <th class="align-middle text-center">Karung SAK</th>
+                                            <th class="align-middle text-center">Jumbo Bag</th>
+                                            <th class="align-middle text-center">Angkut Mobil Limbah</th>
+                                            <th class="align-middle text-center">Saos</th>
+                                            <th class="align-middle text-center">Mayones</th>
+                                            <th class="align-middle text-center">Keju</th>
+                                            <th class="align-middle text-center">IBC</th>
+                                        </tr>
+                                    </thead>
+                                    <?php 
+                                    $temp_tanggal = '';
+                                    foreach ($date_note as $k => $value ): 
+                                        $td_tanggal = '';
+                                        if($value->tanggal != $temp_tanggal){
+                                            $temp_tanggal = $value->tanggal;
+                                            $td_tanggal = '<td class="align-middle text-center" rowspan="'.$value->count_tanggal.'" style="min-width: 200px">'.tgl_indo($value->tanggal).'</td>';
+                                        }
+                                    ?>
+                                        <tr>
+                                        <td width="20px"><div class="btn btn-sm btn-primary" data-id="<?php echo $value->id ?>"><i class="fa fa-edit"></i></div></td>
+                                        <td width="20px"><div class="btn btn-sm btn-danger" data-id="<?php echo $value->id ?>"><i class="fa fa-trash"></i></div></td>
+                                            
+                                            <?php echo $td_tanggal; ?>
+                                            <td><?php echo $value->shift; ?></td>
+                                            <td><?php echo $value->awal_inlet; ?></td>
+                                            <td><?php echo $value->akhir_inlet; ?></td>
+                                            <td><?php echo $value->hasil_proses_m3_1; ?></td>
+                                            <td><?php echo $value->awal_outlet; ?></td>
+                                            <td><?php echo $value->akhir_outlet; ?></td>
+                                            <td><?php echo $value->hasil_proses_m3_2; ?></td>
+                                            <td><?php echo $value->ph_eq; ?></td>
+                                            <td><?php echo $value->tds_eq; ?></td>
+                                            <td><?php echo $value->ph_daf; ?></td>
+                                            <td><?php echo $value->tds_daf; ?></td>
+                                            <td><?php echo $value->fecl3; ?></td>
+                                            <td><?php echo $value->anion; ?></td>
+                                            <td><?php echo $value->cation; ?></td>
+                                            <td><?php echo $value->coustik; ?></td>
+                                            <td><?php echo $value->bakteri; ?></td>
+                                            <td><?php echo $value->antifoam; ?></td>
+                                            <td><?php echo $value->ph; ?></td>
+                                            <td><?php echo $value->tds; ?></td>
+                                            <td><?php echo $value->sv_30; ?></td>
+                                            <td><?php echo $value->stok_karung; ?></td>
+                                            <td><?php echo $value->karung_sak; ?></td>
+                                            <td><?php echo $value->jumbo_bag; ?></td>
+                                            <td><?php echo $value->angkut_mobil_limbah; ?></td>
+                                            <td><?php echo $value->saos; ?></td>
+                                            <td><?php echo $value->mayones; ?></td>
+                                            <td><?php echo $value->keju; ?></td>
+                                            <td><?php echo $value->ibc; ?></td>
+                                            <td><?php echo $value->catatan; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </table>
+                            </div>
                     </div>
                 </main>
         <?php $this->load->view('administrator/layouts/footer'); ?>
@@ -223,6 +236,17 @@
 
                         $('#editModal').modal('show');
                     });
+                })
+
+                $('.filter').on('change',function(){
+                    $('#form-filter').submit();
+                })
+                $('body').on('click','.d-print',function(){
+                    var href = $(this).attr('data-src');
+                    var tahun = $('select[name="tahun"] option:selected').val();
+                    var bulan = $('select[name="bulan"] option:selected').val();
+                    href += "?tahun="+tahun+"&bulan="+bulan;
+                    window.open(href, '_blank');
                 })
             </script>
     </body>

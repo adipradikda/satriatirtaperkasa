@@ -8,7 +8,7 @@ class Date_note_Model extends CI_Model {
 
 	   	return  $insert_id;
 	}
-	public function tampil(){
+	public function tampil($tahun,$bulan){
 		$this->db->select('
 			t1.id,t1.tanggal,t1.catatan,t1.shift,
 			t2.awal_inlet,t2.akhir_inlet,t2.hasil_proses_m3_1,t2.awal_outlet,t2.akhir_outlet,t2.hasil_proses_m3_2,
@@ -17,6 +17,7 @@ class Date_note_Model extends CI_Model {
 			t5.ph,t5.tds,t5.sv_30,
 			t6.stok_karung,t6.karung_sak,t6.jumbo_bag,
 			t7.angkut_mobil_limbah,t7.saos,t7.mayones,t7.keju,t7.ibc,
+			(select count(id) from date_note where tanggal = t1.tanggal) as count_tanggal
 		');
 		$this->db->join('flow_rate as t2','t1.id = t2.id_date_note','left');
 		$this->db->join('inlet_outlet as t3','t1.id = t3.id_date_note','left');
@@ -26,6 +27,8 @@ class Date_note_Model extends CI_Model {
 		$this->db->join('buang_limbah_disumpit as t7','t1.id = t7.id_date_note','left');
 		$this->db->order_by('t1.tanggal','asc');
 		$this->db->order_by('t1.shift','asc');
+		$this->db->where('year(t1.tanggal)',$tahun);
+		$this->db->where('month(t1.tanggal)',$bulan);
 		$this->db->from('date_note as t1');
 		$data = $this->db->get();
 		return $data->result();

@@ -104,3 +104,7 @@ function check_session_login(){
                 redirect('login');
         }
 }
+
+function debug_json($data){
+        echo json_encode($data, JSON_PRETTY_PRINT);exit();
+}
