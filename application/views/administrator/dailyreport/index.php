@@ -3,7 +3,6 @@
     <head>
         <title>Daily Report - Satria Tirta Perkasa</title>
         <?php $this->load->view('administrator/layouts/_css'); ?>
-
     </head>
     <body class="sb-nav-fixed">
         <?php $this->load->view('administrator/layouts/header'); ?>
@@ -50,7 +49,7 @@
                         <?php } ?>
 
                             <?php $this->load->view($view_dir.'tambah'); ?>
-                            <div class="table-responsive min-vh-100">    
+                            <div class="table-responsive">    
                                 <table class="table table-bordered" border="3" align="center">
                                     <thead style="position: sticky;top: 0">
                                         <tr>
@@ -248,6 +247,16 @@
                     href += "?tahun="+tahun+"&bulan="+bulan;
                     window.open(href, '_blank');
                 })
+
+
+                $(document).ready(function(){
+                    screenWindow();
+                })
+                function screenWindow(){
+                    var height = $(window ).height();
+                    console.log(height);
+                    $('.table-responsive').height(height-300);
+                }
             </script>
     </body>
 </html>
